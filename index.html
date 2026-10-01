@@ -16,23 +16,25 @@ a{color:inherit;text-decoration:none}
 :focus-visible{outline:1px solid var(--ac);outline-offset:4px}
 .mono{font:400 11px/1.8 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 /* fixed UI */
-#top{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;padding:20px 28px;mix-blend-mode:difference;color:#fff;font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+#top{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;padding:20px 28px;color:var(--ink);font:400 11px var(--mono);letter-spacing:.14em;text-transform:uppercase}
 #st{position:fixed;left:28px;bottom:26px;z-index:80;font:400 10px/1.7 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 #st b{color:var(--ac);font-weight:400;display:block}#st span{color:var(--ink)}
 #lg{position:fixed;right:28px;bottom:26px;z-index:80;text-align:right;font:400 10px/1.7 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dimr)}
 #cur{position:fixed;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid var(--ac);border-radius:50%;z-index:95;pointer-events:none;opacity:0;transition:opacity .3s,width .25s,height .25s,margin .25s}
 #cur.big{width:64px;height:64px;margin:-32px 0 0 -32px}
 /* stages */
-.stage{position:relative;height:320vh}
-.pin{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
-.rm .stage{height:auto}.rm .pin{position:relative;height:auto;min-height:100vh;padding:90px 0}
+.stage{position:relative}
+.pin{position:relative;min-height:100vh;padding:90px 0;overflow:hidden;display:grid;place-items:center}
+.js .stage{height:var(--h,320vh)}
+.js .pin{position:sticky;top:0;height:100vh;height:100dvh;min-height:0;padding:0}
+.rm.js .stage{height:auto}.rm.js .pin{position:relative;height:auto;min-height:100vh;padding:90px 0}
 .vel{transform:skewY(calc(var(--v)*2.4deg));will-change:transform}
 .l{display:inline-block;transform:translateY(calc(var(--s,0)*var(--k)*140px)) rotate(calc(var(--s,0)*var(--k)*22deg))}
 .l i{display:inline-block;font-style:normal}
 .js .l i{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r));transition:transform 1.5s cubic-bezier(.2,.8,.2,1) var(--d),opacity 1s var(--d)}
 .js .on .l i{opacity:1;transform:none}
 /* hero */
-#hero .pin{place-items:end start;padding:0 0 12vh 0}
+#hero .pin{place-items:end start;padding:0 0 25vh 0}
 #hero h1{font-weight:inherit;line-height:.8;white-space:nowrap}
 .h1a{display:block;font:700 24vw/.8 var(--sans);color:var(--ink);letter-spacing:-.06em;margin-left:-3vw}
 .h1b{display:block;font:var(--w,300) 8.2vw/1 var(--sans);color:var(--wm);letter-spacing:-.03em;margin:1.2vw 0 0 2.5vw}
@@ -84,21 +86,26 @@ a{color:inherit;text-decoration:none}
 #ocu{position:absolute}
 #ost{position:absolute;left:18px;top:14px;font:700 clamp(24px,3.4vw,46px)/1 var(--sans);letter-spacing:-.04em;color:var(--ink)}
 .ocwrap .mono{position:absolute;right:16px;bottom:10px}
-#ex{position:relative;height:min(76vh,560px);margin-top:4vh}
+#ex{position:relative;margin-top:4vh;display:flex;flex-wrap:wrap;gap:12px}
+.js #ex{display:block;height:min(76vh,560px)}
 #ex svg{position:absolute;inset:0;width:100%;height:100%}
 #ex line{stroke:rgba(255,255,255,.16);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 2.2s ease .6s}
 #ex.on line{stroke-dashoffset:0}
-#ex .w{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:400 clamp(20px,2.6vw,34px)/1 var(--serif);color:var(--ink);padding:10px 16px;background:var(--bg);border:1px solid var(--line);white-space:nowrap}
-.js #ex .w{opacity:0;transition:left 1.8s cubic-bezier(.2,.8,.2,1),top 1.8s cubic-bezier(.2,.8,.2,1),opacity 1s}
+#ex .w{font:400 clamp(20px,2.6vw,34px)/1 var(--serif);color:var(--ink);padding:10px 16px;background:var(--bg);border:1px solid var(--line);white-space:nowrap}
+.js #ex .w{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0;transition:left 1.8s cubic-bezier(.2,.8,.2,1),top 1.8s cubic-bezier(.2,.8,.2,1),opacity 1s}
 .js #ex.on .w{left:var(--tx);top:var(--ty);opacity:1}
-#ex .core{font:700 clamp(18px,2vw,26px) var(--sans);border-color:var(--ac);z-index:2;opacity:1!important;left:50%!important;top:50%!important}
+#ex .core{border-color:var(--ac)}
+.js #ex .core{font:700 clamp(18px,2vw,26px) var(--sans);border-color:var(--ac);z-index:2;opacity:1!important;left:50%!important;top:50%!important}
 .who{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-bottom:6vh}
 .who div{border-top:1px solid var(--line);padding-top:16px}
 .who h3{font:700 clamp(28px,3.4vw,44px)/1 var(--sans);letter-spacing:-.04em;color:var(--ink);margin:6px 0 10px}
 .who p{color:#999589;font-size:15px}
 /* ending */
-#end .pin{text-align:center;padding:0 28px}
-#end .c{position:absolute;left:50%;top:50%;bottom:auto;right:auto;transform:translate(-50%,-50%);width:min(1100px,90vw);max-width:none}
+#end .pin{text-align:center;padding:90px 28px}
+.js #end .pin{padding:0 28px}
+#end .c{position:relative;margin:30px auto}
+.js #end .c{position:absolute;margin:0;left:50%;top:50%;bottom:auto;right:auto;transform:translate(-50%,-50%);width:min(1100px,90vw);max-width:none}
+#end .c{max-width:none}
 .js #end .c{opacity:0}
 .fin{font:700 clamp(40px,8.4vw,130px)/.92 var(--sans);letter-spacing:-.05em;color:var(--ink)}
 .fin em{font:italic 400 1em var(--serif);color:var(--wm);letter-spacing:-.03em}
@@ -106,7 +113,7 @@ a{color:inherit;text-decoration:none}
 .steps b{color:var(--ink);font-weight:700}
 .contact{margin-top:28px;display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
 .contact a{font:400 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--ac);padding-bottom:4px;display:inline-block}
-@media(max-width:800px){#top,#st,#lg{left:18px;right:18px}#top{padding:16px 18px}#st{left:18px;bottom:16px}#lg{display:none}.cue,#cur{display:none}.c{max-width:44vw}.tl{left:18px;top:64px}.tr{right:18px;top:64px}.bl{left:18px;bottom:64px}.br{right:18px;bottom:64px}.art{width:92vw}.mini{width:34vw;right:4vw;bottom:12vh}.nar,.who,#pan{grid-template-columns:1fr}.sec{padding:14vh 18px}.stage{height:260vh}.h1a{font-size:26vw}.h1b{font-size:8.6vw}#map text{font-size:21px}.cm{bottom:14vh;max-width:84vw}}
+@media(max-width:800px){#top,#st,#lg{left:18px;right:18px}#top{padding:16px 18px}#st{left:18px;bottom:16px}#lg{display:none}.cue,#cur{display:none}.c{max-width:44vw}.tl{left:18px;top:64px}.tr{right:18px;top:64px}.bl{left:18px;bottom:64px}.br{right:18px;bottom:64px}.art{width:92vw}.mini{width:34vw;right:4vw;bottom:12vh}.nar,.who,#pan{grid-template-columns:1fr}.sec{padding:14vh 18px}.js .stage{height:calc(var(--h,320vh)*.82)}.h1a{font-size:26vw}.h1b{font-size:8.6vw}#map text{font-size:21px}.cm{bottom:14vh;max-width:84vw}}
 </style></head>
 <body>
 <div id="top"><a href="#hero">Aditya Raj</a><a href="mailto:araj85875@gmail.com">Contact</a></div>
@@ -114,10 +121,10 @@ a{color:inherit;text-decoration:none}
 <div id="lg">System / Photosynthesis<br>Model / SBML</div>
 <div id="cur"></div>
 
-<header class="stage" id="hero" data-state="0" style="height:210vh">
+<header class="stage" id="hero" data-state="0" style="--h:210vh">
 <div class="pin">
 <h1 class="vel"><span class="h1a" id="h1a">SYSTEMS</span><span class="h1b" id="h1b">BIOENGINEERING</span></h1>
-<p class="sub" style="position:absolute;left:0;bottom:3vh">I model biological systems to understand how they behave, and engineer them to do more.</p>
+<p class="sub" style="position:absolute;left:0;bottom:9vh">I model biological systems to understand how they behave, and engineer them to do more.</p>
 <span class="cue">Scroll</span>
 </div>
 </header>
@@ -131,7 +138,7 @@ a{color:inherit;text-decoration:none}
 </div>
 </section>
 
-<section class="stage" id="scale" data-k="scale" data-state="1" style="height:420vh">
+<section class="stage" id="scale" data-k="scale" data-state="1" style="--h:420vh">
 <div class="pin">
 <div id="sc"><i class="ring" style="width:30vmin;height:30vmin"></i><i class="ring" style="width:60vmin;height:60vmin"></i><i class="ring" style="width:95vmin;height:95vmin"></i>
 <span>GENE</span><span>CIRCUIT</span><span>CELL</span><span>ORGANISM</span><span>BIOPROCESS</span><span>ENVIRONMENT</span><span>SYSTEM</span></div>
@@ -179,7 +186,7 @@ a{color:inherit;text-decoration:none}
 </div>
 </section>
 
-<section class="stage" id="fibt" data-k="art" data-state="4" style="height:280vh">
+<section class="stage" id="fibt" data-k="art" data-state="4" style="--h:280vh">
 <div class="pin">
 <figure class="art"><div class="frame" data-f="FIBT_presentation.jpg"><img src="FIBT_presentation.jpg" alt="Presenting AquaOptim at FIBT 2026" loading="lazy" onerror="this.parentNode.classList.add('empty')"/></div></figure>
 <div class="c tl" data-at=".25"><div class="k">FIBT<br>2026</div></div>
@@ -207,7 +214,7 @@ a{color:inherit;text-decoration:none}
 <p class="p">Biology, mathematics, computation and engineering meet in the same place for me: systems that have to keep working while everything around them changes. I came to it self-taught, and followed that one thread.</p>
 </section>
 
-<section class="stage" id="end" data-k="end" data-state="5" style="height:360vh">
+<section class="stage" id="end" data-k="end" data-state="5" style="--h:360vh">
 <div class="pin">
 <div class="c" data-at=".02" data-to=".3"><div class="fin">BIOLOGY IS A <em>SYSTEM.</em></div></div>
 <div class="c" data-at=".34" data-to=".6"><div class="fin">SO IS EVERYTHING<br>WE BUILD <em>AROUND IT.</em></div></div>
@@ -221,15 +228,75 @@ a{color:inherit;text-decoration:none}
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches,TOUCH=matchMedia('(pointer:coarse)').matches,D=document.documentElement;
-D.classList.add('js');if(RM)D.classList.add('rm');
+if(RM)D.classList.add('rm');
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),sm=(a,b,x)=>{x=cl((x-a)/(b-a));return x*x*(3-2*x)},lerp=(a,b,t)=>a+(b-a)*t,R=()=>Math.random()*2-1;
 function split(el){const t=el.textContent;el.setAttribute('aria-label',t.replace(/\s+/g,' '));el.textContent='';
 [...t].forEach((c,i)=>{if(c==='\n'){el.appendChild(document.createElement('br'));return}const l=document.createElement('span');l.className='l';l.setAttribute('aria-hidden','true');l.style.setProperty('--k',R().toFixed(2));l.style.setProperty('--d',i*40+'ms');const s=document.createElement('i');s.textContent=c===' '?'\u00a0':c;s.style.setProperty('--x',(R()*70|0)+'px');s.style.setProperty('--y',(R()*100|0)+'px');s.style.setProperty('--r',(R()*40|0)+'deg');l.appendChild(s);el.appendChild(l)})}
 ['#h1a','#h1b'].forEach(s=>split($(s)));
-requestAnimationFrame(()=>setTimeout(()=>{$('#hero').classList.add('on')},120));
-const seqT=$('#seqt'),seqTxt=document.createElement('span');seqTxt.textContent='BIOLOGY IS A SYSTEM.';seqT.insertBefore(seqTxt,seqT.firstChild);seqT.removeChild(seqT.childNodes[1]);split(seqTxt);seqT.classList.add('on');
+const seqT=$('#seqt'),seqTxt=document.createElement('span');seqTxt.textContent='BIOLOGY IS A SYSTEM.';seqT.insertBefore(seqTxt,seqT.firstChild);seqT.removeChild(seqT.childNodes[1]);split(seqTxt);
 function sz(c){const d=Math.min(devicePixelRatio||1,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;c.getContext('2d').setTransform(d,0,0,d,0,0)}
 const sc=$('#seqc'),sx=sc.getContext('2d'),oc=$('#ocu'),ox=oc.getContext('2d');
 const NN=TOUCH?18:28,nodes=Array.from({length:NN},(_,i)=>({x:Math.random(),y:Math.random(),a:i/NN*Math.PI*2,ph:Math.random()*6}));
 function rs(){sz(sc);sz(oc)}rs();addEventListener('resize',rs);
-function morph(el,to){if(el.dataset.t===to)return;el.dataset.t=to;if(RM){el.textContent=to;return}const G='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+function morph(el,to){if(el.dataset.t===to)return;el.dataset.t=to;if(RM){el.textContent=to;return}const G='ABCDEFGHIJKLMNOPQRSTUVWXYZ';let f=0;clearInterval(el._i);el._i=setInterval(()=>{f++;el.textContent=[...to].map((c,i)=>f>i*1.6+4?c:G[Math.random()*26|0]).join('');if(f>to.length*1.6+5){clearInterval(el._i);el.textContent=to}},34)}
+function drawSeq(p,t){const W=sc.clientWidth,H=sc.clientHeight;sx.clearRect(0,0,W,H);const f=sm(.12,.55,p),ch=sm(.4,.75,p),cx=W/2,cy=H/2,Rr=Math.min(W,H)*.36,P=nodes.map((n,i)=>({x:lerp(n.x*W+Math.sin(t/1700+n.ph)*10,cx+Math.cos(n.a)*Rr*(W>H?1.35:1),f),y:lerp(n.y*H+Math.cos(t/1900+n.ph)*10,cy+Math.sin(n.a)*Rr,f)}));
+sx.lineWidth=1;for(let i=0;i<NN;i++){const a=P[i],b=P[(i+1)%NN],c=P[(i+7)%NN];sx.strokeStyle=`rgba(126,184,164,${.5*f})`;sx.beginPath();sx.moveTo(a.x,a.y);sx.lineTo(b.x,b.y);sx.stroke();sx.strokeStyle=`rgba(196,168,130,${.28*ch})`;sx.beginPath();sx.moveTo(a.x,a.y);sx.lineTo(c.x,c.y);sx.stroke()}
+P.forEach((q,i)=>{const hub=ch>.6&&i%Math.round(NN/3)===0;sx.fillStyle=hub?'#c4a882':'rgba(236,232,223,.8)';sx.beginPath();sx.arc(q.x,q.y,hub?7:2.4,0,6.3);sx.fill()})}
+const WORDS=['MODEL','SIMULATE','PERTURB','ENGINEER'];
+const K={seq(st,p){const t=performance.now();seqT.style.setProperty('--s',sm(.04,.3,p));seqT.style.opacity=1-sm(.22,.4,p);drawSeq(p,t);const wd=$('#wd');const i=p<.5?-1:Math.min(3,Math.floor((p-.5)/.12));wd.style.opacity=i<0?0:1;if(i>=0)morph(wd,WORDS[i])},
+scale(st,p){const sp=$$('#sc span'),n=sp.length;sp.forEach((s,i)=>{const t=cl(p/.8*n-i,-1,2);let o,sc2;if(i===n-1){o=sm(0,.4,t);sc2=lerp(.3,1,sm(0,1,t))}else{o=Math.sin(cl(t,0,1)*Math.PI);sc2=lerp(.15,3.2,cl(t,0,1))}s.style.opacity=o;s.style.transform=`scale(${sc2})`})},
+art(st,p){$('.art',st).style.transform=`scale(${lerp(.28,1,sm(0,.5,p))})`},
+end(){}};
+let ly=scrollY,vel=0;const stages=$$('.stage');
+const hero=$('#hero'),h1b=$('#h1b');
+function tick(){const y=scrollY,vh=innerHeight;vel+=((y-ly)-vel)*.14;ly=y;D.style.setProperty('--v',cl(vel/36,-1,1).toFixed(3));
+const hs=RM?0:cl(y/(vh*.9));hero.style.setProperty('--s',hs.toFixed(3));$('#h1a').style.setProperty('--s',hs);h1b.style.setProperty('--s',hs);h1b.style.setProperty('--w',Math.round(200+hs*600));
+stages.forEach(st=>{try{const r=st.getBoundingClientRect();if(r.bottom<-80||r.top>vh+80)return;const p=RM?1:cl(-r.top/Math.max(1,r.height-vh));st.style.setProperty('--p',p.toFixed(4));const k=st.dataset.k;if(k&&K[k])K[k](st,p);
+(st._c||(st._c=$$('.c',st))).forEach(c=>{const a=+c.dataset.at,b=c.dataset.to?+c.dataset.to:9,o=sm(a,a+.1,p)*(1-sm(b,b+.08,p));c.style.opacity=RM?1:o;c.style.pointerEvents=o>.4?'auto':'none'})}catch(e){console.error(e)}});
+if(vis.o)try{drawO(performance.now())}catch(e){console.error(e)}}
+function frame(){requestAnimationFrame(frame);try{tick()}catch(e){console.error(e)}}
+const vis={o:false};new IntersectionObserver(es=>es.forEach(e=>vis.o=e.isIntersecting)).observe(oc);
+/* oculen: three-gene ring (Elowitz-Leibler). Cursor x lowers the Hill coefficient. */
+let om=[0,0,0],op=[1,2,3],ov=0,ovt=0,ptr=false,mx=1,last='';
+oc.addEventListener('pointermove',e=>{const r=oc.getBoundingClientRect();ovt=cl((e.clientX-r.left)/r.width);ptr=true});
+function drawO(t){if(!ptr)ovt=.5+.5*Math.sin(t/3600-1.6);ov+=(ovt-ov)*.07;const n=2.4-1.5*ov;
+for(let k=0;k<10;k++){const q=[0,1,2].map(i=>-om[i]+216/(1+Math.pow(op[(i+2)%3],n)));for(let i=0;i<3;i++){om[i]+=q[i]*.02;op[i]+=-5*(op[i]-om[i])*.02}}
+mx=Math.max(mx*.999,...op);const W=oc.clientWidth,H=oc.clientHeight,cx=W/2,cy=H/2+10,Rr=Math.min(W,H)*.3;ox.clearRect(0,0,W,H);
+const P=[0,1,2].map(i=>{const a=-Math.PI/2+i*2.094,j=ov*ov*7;return{x:cx+Math.cos(a)*Rr*1.4+R()*j,y:cy+Math.sin(a)*Rr+R()*j}});
+for(let i=0;i<3;i++){const a=P[i],b=P[(i+1)%3];ox.strokeStyle=`rgba(236,232,223,${.9-ov*.7})`;ox.lineWidth=.5+3.5*(1-ov);ox.setLineDash(ov>.55?[5,9]:[]);ox.beginPath();ox.moveTo(a.x,a.y);ox.lineTo(b.x,b.y);ox.stroke()}
+ox.setLineDash([]);const C=['#7eb8a4','#c4a882','#ece8df'];P.forEach((q,i)=>{ox.fillStyle=C[i];ox.globalAlpha=.9;ox.beginPath();ox.arc(q.x,q.y,10+op[i]/mx*30,0,6.3);ox.fill();ox.globalAlpha=1});
+const s=ov<.33?'ROBUST':ov<.66?'PERTURBED':'FRAGILE';if(s!==last){last=s;$('#ost').textContent=s}}
+/* state indicator */
+const ST=[['01','Observe','System / Photosynthesis','Model / SBML'],['02','Model','Model / SBML','System / Gene circuit'],['03','Simulate','Method / ODE','System / Photosynthesis'],['04','Perturb','Sampling / Latin Hypercube','Method / Monte Carlo'],['05','Optimize','System / Bioprocess','Target / Resilience'],['06','Engineer','Output / Circuit design','System / Biological']];
+const sts=$('#st'),lg=$('#lg');
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const s=ST[+e.target.dataset.state];sts.innerHTML=`<b>State ${s[0]}</b><span>${s[1]}</span>`;lg.innerHTML=s[2]+'<br>'+s[3]}),{rootMargin:'-48% 0px -48% 0px'});$$('[data-state]').forEach(el=>so.observe(el));
+/* research map */
+const G=[['Synthetic biology',[['Oculen Bio','A computational systems-biology platform for analyzing the fragility and robustness of biological circuits.',['oculen.bio|http://oculen.bio']],['BioFSM','An interactive environment for debugging gene-network behavior under mutation pressure.',['bio-fsm.streamlit.app|https://bio-fsm.streamlit.app/']],['Circuit collection','More than twenty synthetic circuits modeled in Antimony and SBML: oscillators, logic gates, memory, biosensors, feed-forward loops.',[]]]],
+['Metabolic and bioprocess',[['AquaOptim','A portable biological sensing device for microbial-quality assessment of drinking water. Best Oral Presentation, FIBT 2026.',[]],['Ethanol from waste','Bioprocess engineering work on producing ethanol from waste.',[]]]],
+['Plant systems',[['NIBB photosynthesis','Models of state-transition and light-harvesting dynamics in photosynthetic organisms, built with dynamical simulation. NIBB, Japan, with Prof. Jun Minagawa.',[]],['Gene–Trait–Satellite','Integrates genetic variation, biological traits and satellite-derived environmental stress into resilience fingerprints across varieties and regions.',[]]]],
+['Computational biology',[['Nanotransfer','Patent pending. Detects and maps horizontal DNA transfer between cells by combining single-cell RNA-seq with spatial transcriptomics.',['nanotransfer.io|https://nanotransfer.io','Preprint|https://doi.org/10.21203/rs.3.rs-10667794/v1']]]]];
+const BP=[[250,170],[250,470],[750,470],[750,170]],NS='http://www.w3.org/2000/svg',map=$('#map'),pan=$('#pan');let edges=[];
+const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p&&p.appendChild(e);return e};
+const eg=el('g',{},map),ng=el('g',{},map);
+const cx0=500,cy0=320;
+function pick(n,g){$$('.n',map).forEach(x=>x.classList.remove('sel'));n.g.classList.add('sel');edges.forEach(e=>e.l.classList.toggle('hot',e.n===n||e.n===n.par));
+pan.innerHTML=`<h3>${g[0]}</h3><div><p>${g[1]}</p><p style="margin-top:12px">${g[2].map(l=>{const[a,b]=l.split('|');return`<a href="${b}" target="_blank" rel="noopener">${a} ↗</a>`}).join('')}</p></div>`}
+const core=el('g',{class:'n b'},ng);el('circle',{cx:cx0,cy:cy0,r:9},core);el('text',{x:cx0,y:cy0+32},core).textContent='Systems bioengineering';
+let first=null;
+G.forEach((b,bi)=>{const[bx,by]=BP[bi],bn={g:el('g',{class:'n b'},ng)};el('circle',{cx:bx,cy:by,r:6},bn.g);el('text',{x:bx,y:by+28},bn.g).textContent=b[0];const l0=el('line',{x1:cx0,y1:cy0,x2:bx,y2:by,class:'e'},eg);edges.push({l:l0,n:bn});
+const out=Math.atan2(by-cy0,bx-cx0),L=b[1],sp=L.length>2?.85:.55;L.forEach((lf,li)=>{const a=out+(L.length===1?0:(li/(L.length-1)-.5)*2*sp),lx=cl(bx+Math.cos(a)*170,90,910),ly2=cl(by+Math.sin(a)*150,40,600);const n={g:el('g',{class:'n',tabindex:0,role:'button'},ng),par:bn};el('circle',{cx:lx,cy:ly2,r:4.5},n.g);el('text',{x:lx,y:ly2+(ly2>by?24:-14)},n.g).textContent=lf[0];const l=el('line',{x1:bx,y1:by,x2:lx,y2:ly2,class:'e'},eg);edges.push({l,n});const go=()=>pick(n,lf);n.g.addEventListener('click',go);n.g.addEventListener('mouseenter',go);n.g.addEventListener('keydown',e=>{if(e.key==='Enter')go()});if(!first)first=[n,lf]})});
+pick(first[0],first[1]);
+/* exploring */
+const ex=$('#ex'),ws=$$('.w:not(.core)',ex),sv=$('svg',ex);
+ws.forEach((w,i)=>{const a=-Math.PI/2+i/ws.length*Math.PI*2,x=50+Math.cos(a)*38,y=50+Math.sin(a)*38;w.style.setProperty('--tx',x+'%');w.style.setProperty('--ty',y+'%');el('line',{x1:50,y1:50,x2:x,y2:y},sv);const a2=-Math.PI/2+((i+1)%ws.length)/ws.length*Math.PI*2;el('line',{x1:x,y1:y,x2:50+Math.cos(a2)*38,y2:50+Math.sin(a2)*38},sv)});
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');o.unobserve(e.target)}}),{threshold:.3}).observe(ex);
+/* cursor + magnetic links */
+if(!TOUCH&&!RM){const c=$('#cur');let cx1=0,cy1=0,tx=0,ty=0;addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;c.style.opacity=1});(function f(){cx1+=(tx-cx1)*.18;cy1+=(ty-cy1)*.18;c.style.transform=`translate(${cx1}px,${cy1}px)`;requestAnimationFrame(f)})();
+$$('a,.n').forEach(a=>{a.addEventListener('pointerenter',()=>c.classList.add('big'));a.addEventListener('pointerleave',()=>{c.classList.remove('big');a.style.transform=''})});
+$$('.mag').forEach(a=>a.addEventListener('pointermove',e=>{const r=a.getBoundingClientRect();a.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.4}px)`}))}
+try{tick()}catch(e){console.error(e)}
+D.classList.add('js');seqT.classList.add('on');requestAnimationFrame(()=>requestAnimationFrame(()=>hero.classList.add('on')));
+requestAnimationFrame(frame);
+})();
+</script>
+</body></html>
