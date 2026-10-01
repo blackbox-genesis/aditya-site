@@ -1,742 +1,214 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ADITYA RAJ | Synthetic & Systems Biology</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --bg: #0f0f0e;
-      --bg2: #141413;
-      --line: rgba(255,255,255,0.07);
-      --line2: rgba(255,255,255,0.12);
-      --text: #d4d0c8;
-      --text-dim: #7a7870;
-      --text-dimmer: #4a4844;
-      --accent: #7eb8a4;
-      --warm: #c4a882;
-      --serif: 'EB Garamond', serif;
-      --mono: 'JetBrains Mono', monospace;
-      --sans: 'Outfit', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 15px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    .wrap {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    section {
-      padding: 82px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(15,15,14,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-
-    nav .wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 52px;
-    }
-
-    .nav-name {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      text-transform: lowercase;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent);
-    }
-
-    #hero {
-      padding-top: 150px;
-      padding-bottom: 110px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #hero::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: -100px;
-      width: 500px;
-      height: 500px;
-      background:
-        linear-gradient(var(--line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(ellipse at 70% 30%, black 20%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 26px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .hero-label::before {
-      content: '';
-      width: 22px;
-      height: 1px;
-      background: var(--accent);
-    }
-
-    .hero-age {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--warm);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-family: var(--serif);
-      font-size: clamp(34px, 5vw, 52px);
-      line-height: 1.12;
-      font-weight: 400;
-      color: #ebe7df;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-      max-width: 720px;
-    }
-
-    h1 em {
-      color: var(--warm);
-      font-style: italic;
-    }
-
-    .hero-sub {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--text-dim);
-      line-height: 2;
-      letter-spacing: 0.05em;
-      margin-bottom: 32px;
-      max-width: 640px;
-    }
-
-    .hero-intro {
-      max-width: 560px;
-      color: #8f8b83;
-      font-size: 14px;
-      line-height: 1.8;
-      margin-bottom: 42px;
-    }
-
-    .hero-links {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .hero-link {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dim);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--line2);
-      padding-bottom: 2px;
-      transition: all 0.2s;
-    }
-
-    .hero-link:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    .photo-strip {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 62px;
-    }
-
-    .photo-item {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--line2);
-    }
-
-    .photo-item img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(20%) contrast(1.05);
-      transition: filter 0.4s;
-    }
-
-    .photo-item:hover img {
-      filter: grayscale(0%) contrast(1.05);
-    }
-
-    .photo-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 12px 14px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.88));
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text);
-      letter-spacing: 0.06em;
-    }
-
-    .sec-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      margin-bottom: 42px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .sec-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--line2);
-    }
-
-    .research-intro {
-      font-family: var(--serif);
-      font-size: 22px;
-      line-height: 1.7;
-      color: #bbb7af;
-      max-width: 680px;
-      margin-bottom: 42px;
-    }
-
-    .research-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .research-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      letter-spacing: 0.06em;
-      padding: 12px 14px;
-      border: 1px solid var(--line);
-      background: var(--bg2);
-    }
-
-    .project {
-      padding: 34px 0;
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 42px;
-    }
-
-    .project:last-child {
-      border-bottom: none;
-    }
-
-    .project-name {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: #ebe7df;
-      letter-spacing: 0.06em;
-      margin-bottom: 10px;
-    }
-
-    .project-status {
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--text-dimmer);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .project-status.live {
-      color: var(--accent);
-    }
-
-    .project-link {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-
-    .project-body h3 {
-      font-family: var(--serif);
-      font-size: 22px;
-      line-height: 1.35;
-      font-weight: 400;
-      color: #cbc7bf;
-      margin-bottom: 14px;
-    }
-
-    .project-body p {
-      font-size: 13px;
-      color: #747068;
-      line-height: 1.8;
-      max-width: 560px;
-      margin-bottom: 10px;
-    }
-
-    .project-stack {
-      margin-top: 18px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.9;
-    }
-
-    .recognition-item {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 42px;
-      padding: 28px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .recognition-item:last-child {
-      border-bottom: none;
-    }
-
-    .rec-venue {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      line-height: 1.8;
-      letter-spacing: 0.08em;
-    }
-
-    .rec-main {
-      font-family: var(--serif);
-      font-size: 20px;
-      color: #cbc7bf;
-      margin-bottom: 8px;
-    }
-
-    .rec-detail {
-      font-size: 13px;
-      color: #747068;
-      line-height: 1.8;
-      max-width: 540px;
-    }
-
-    .rec-grant {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 4px 10px;
-      border: 1px solid rgba(196,168,130,0.25);
-      font-family: var(--mono);
-      font-size: 9px;
-      color: var(--warm);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .engagement-text {
-      font-family: var(--serif);
-      font-size: 22px;
-      line-height: 1.7;
-      color: #b5b1aa;
-      max-width: 640px;
-    }
-
-    .edu-block {
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 42px;
-    }
-
-    .edu-year {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      letter-spacing: 0.08em;
-      line-height: 1.8;
-    }
-
-    .edu-name {
-      font-family: var(--serif);
-      font-size: 22px;
-      color: #cbc7bf;
-      margin-bottom: 8px;
-    }
-
-    .edu-detail {
-      font-size: 13px;
-      color: #747068;
-      margin-bottom: 24px;
-    }
-
-    .coursework-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .coursework-list li {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      letter-spacing: 0.06em;
-    }
-
-    footer {
-      padding: 40px 0;
-    }
-
-    footer .wrap {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-left {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      letter-spacing: 0.08em;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-    }
-
-    .footer-links a {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--text-dimmer);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 640px) {
-      .wrap { padding: 0 22px; }
-      .photo-strip,
-      .research-grid {
-        grid-template-columns: 1fr;
-      }
-      .project,
-      .recognition-item,
-      .edu-block {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-      .nav-links { display: none; }
-      h1 {
-        font-size: 34px;
-      }
-    }
-  </style></head><body><nav>
-  <div class="wrap">
-    <a href="#hero" class="nav-name">ADITYA RAJ</a>
-    <ul class="nav-links">
-      <li><a href="#research">Research</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#recognition">Recognition</a></li>
-      <li><a href="#education">Education</a></li>
-    </ul>
-  </div>
-</nav><section id="hero">
-  <div class="wrap"><div class="hero-label">Computational Systems Biology</div>
-<div class="hero-age">19-Year-Old Synthetic &amp; Systems Biology Researcher</div>
-
-<h1>
-  Understanding how biological systems remain <em>stable, adaptive,</em> and alive under complexity
-</h1>
-
-<div class="hero-sub">
-  Synthetic circuit dynamics · Nonlinear dynamical systems · Biological robustness & resilience
-</div>
-
-<p class="hero-intro">
-  Building computational frameworks to study robustness, failure, and emergent behavior across biological systems.
-</p>
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aditya Raj | Systems Bioengineer</title>
+<meta name="description" content="Systems bioengineer. Computational systems biology, synthetic circuits, biological resilience. NIBB Japan, GCSB 2026, FIBT 2026, Nanotransfer."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@300;400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0b0b0a;--bg2:#131312;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.15);--text:#d4d0c8;--dim:#8a877f;--dimmer:#5a5750;--ink:#f0ece3;--accent:#7eb8a4;--warm:#c4a882;--serif:'EB Garamond',Georgia,serif;--mono:'JetBrains Mono',monospace;--sans:'Outfit',sans-serif}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--text);font:300 15.5px/1.75 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.45}
+:focus-visible{outline:1px solid var(--accent);outline-offset:4px}
+::selection{background:rgba(126,184,164,.3)}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 40px;position:relative}
+section{padding:130px 0;border-bottom:1px solid var(--line)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,11,10,.7);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-name{font:400 11px var(--mono);color:var(--ink);letter-spacing:.14em;text-decoration:none;text-transform:uppercase}
+.nav-links{display:flex;gap:34px;list-style:none}
+.nav-links a{font:400 10px var(--mono);color:var(--dim);text-decoration:none;text-transform:uppercase;letter-spacing:.14em;padding-bottom:3px;border-bottom:1px solid transparent;transition:.25s}
+.nav-links a:hover{color:var(--accent);border-color:var(--accent)}
+#hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:120px 0 90px;position:relative;overflow:hidden;cursor:crosshair}
+#hero::before{content:'';position:absolute;top:-200px;left:-200px;width:900px;height:900px;background:radial-gradient(circle,rgba(126,184,164,.13),transparent 62%);pointer-events:none}
+#cv{position:absolute;left:0;right:0;bottom:0;width:100%;height:60%;pointer-events:none;opacity:.8}
+#hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--bg) 0,transparent 28%,transparent 70%,var(--bg) 100%);pointer-events:none}
+#hero .wrap{z-index:2;width:100%}
+.hero-label{font:400 11px var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.24em;margin-bottom:26px;display:flex;align-items:center;gap:14px}
+.hero-label::before{content:'';width:34px;height:1px;background:var(--accent)}
+h1{font:400 clamp(60px,13.5vw,176px)/.88 var(--serif);color:var(--ink);letter-spacing:-.055em;margin-bottom:34px}
+h1 span{color:var(--warm);font-style:italic}
+.statement{font:400 clamp(24px,3.3vw,40px)/1.2 var(--serif);color:#d6d2c9;letter-spacing:-.02em;max-width:720px;margin-bottom:26px;text-wrap:balance}
+.statement em{color:var(--warm)}
+.hero-intro{max-width:520px;color:#9a968b;font-size:15px;line-height:1.85;margin-bottom:40px;text-wrap:pretty}
+.hero-links{display:flex;gap:28px;flex-wrap:wrap}
+.hero-link{font:400 10px var(--mono);color:var(--ink);text-decoration:none;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--line2);padding-bottom:4px;transition:.25s}
+.hero-link:hover{color:var(--accent);border-color:var(--accent)}
+.hint{position:absolute;right:40px;bottom:30px;z-index:2;font:400 10px var(--mono);color:var(--dim);letter-spacing:.14em;text-transform:uppercase}
+.hint::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:10px;box-shadow:0 0 10px var(--accent)}
+.proof{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid var(--line)}
+.proof div{padding:46px 28px 46px 0;border-left:1px solid var(--line);padding-left:26px}
+.proof div:first-child{border-left:none;padding-left:0}
+.proof b{display:block;font:400 clamp(34px,4.4vw,58px)/1 var(--serif);color:var(--ink);letter-spacing:-.03em;margin-bottom:8px}
+.proof span{font:400 10px/1.7 var(--mono);color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.photo-wall{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:250px;gap:12px}
+.photo-item{position:relative;overflow:hidden;border:1px solid var(--line2);background:var(--bg2)}
+.p1{grid-column:span 7;grid-row:span 2}.p2{grid-column:span 5}.p3{grid-column:span 3}.p4{grid-column:span 2}
+.photo-item img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(35%) contrast(1.08) brightness(.9);transition:filter .6s,transform 1.1s}
+.photo-item:hover img{filter:none;transform:scale(1.045)}
+.photo-item.empty img{display:none}
+.photo-item.empty::before{content:'Add ' attr(data-f);position:absolute;top:16px;left:16px;font:400 10px var(--mono);color:var(--dimmer);letter-spacing:.08em}
+.photo-item::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,.9));pointer-events:none}
+.photo-caption{position:absolute;bottom:0;left:0;right:0;padding:18px 20px;z-index:2;font:400 10px var(--mono);color:var(--accent);letter-spacing:.1em;text-transform:uppercase}
+.photo-caption span{display:block;font:italic 400 clamp(20px,2.4vw,30px)/1.1 var(--serif);color:var(--ink);text-transform:none;letter-spacing:-.015em;margin-bottom:6px}
+.sec-label{font:400 11px var(--mono);color:var(--accent);text-transform:uppercase;letter-spacing:.24em;margin-bottom:60px;display:flex;align-items:center;gap:18px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--line2)}
+.research-intro{font:400 clamp(26px,3.4vw,42px)/1.35 var(--serif);color:#cdc9c0;max-width:900px;margin-bottom:64px;letter-spacing:-.025em;text-wrap:pretty}
+.research-intro em{color:var(--warm)}
+.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.research-tag{font:400 10.5px var(--mono);color:var(--dim);letter-spacing:.08em;padding:20px 18px;border:1px solid var(--line);background:var(--bg2);transition:.3s}
+.research-tag:hover{color:var(--accent);border-color:rgba(126,184,164,.4);background:rgba(126,184,164,.05)}
+.project{padding:56px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 250px;gap:20px 60px;transition:padding .35s}
+.project:last-child{border-bottom:1px solid var(--line)}
+.project:hover{padding-left:16px}
+.project:hover .project-name{color:var(--accent)}
+.project-name{font:400 clamp(38px,5.6vw,76px)/1 var(--serif);color:var(--ink);letter-spacing:-.04em;transition:color .3s;margin-bottom:22px}
+.project-body h3{font:italic 400 clamp(20px,2.2vw,26px)/1.3 var(--serif);color:#c9c5bb;margin-bottom:12px;letter-spacing:-.01em;text-wrap:balance}
+.project-body p{font-size:14.5px;color:#8d897f;line-height:1.85;max-width:560px;text-wrap:pretty}
+.project-stack{margin-top:20px;font:400 10px/1.9 var(--mono);color:var(--dimmer);letter-spacing:.09em;text-transform:uppercase}
+.project-side{padding-top:14px}
+.project-status{font:400 9.5px var(--mono);color:var(--warm);letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border:1px solid rgba(196,168,130,.3);display:inline-block;margin-bottom:18px}
+.project-status.live{color:var(--accent);border-color:rgba(126,184,164,.35)}
+.project-link{font:400 10.5px var(--mono);color:var(--accent);text-decoration:none;letter-spacing:.06em;display:block;margin-bottom:6px;transition:color .25s}
+.project-link:hover{color:var(--warm)}
+.recognition-item{display:grid;grid-template-columns:220px 1fr;gap:60px;padding:46px 0;border-top:1px solid var(--line)}
+.recognition-item:last-child{border-bottom:1px solid var(--line)}
+.rec-venue{font:400 10.5px/1.9 var(--mono);color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.rec-main{font:400 clamp(26px,3.2vw,40px)/1.15 var(--serif);color:var(--ink);margin-bottom:12px;letter-spacing:-.03em}
+.rec-detail{font-size:14.5px;color:#8d897f;line-height:1.85;max-width:560px;text-wrap:pretty}
+.rec-grant{display:inline-block;margin-top:16px;padding:6px 13px;border:1px solid rgba(196,168,130,.3);font:400 9.5px var(--mono);color:var(--warm);letter-spacing:.12em;text-transform:uppercase}
+.engagement-text{font:400 clamp(26px,3.4vw,42px)/1.35 var(--serif);color:#b9b5ac;max-width:860px;letter-spacing:-.025em;text-wrap:pretty}
+footer{padding:54px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.footer-left{font:400 10px var(--mono);color:var(--dimmer);letter-spacing:.12em;text-transform:uppercase}
+.footer-links{display:flex;gap:28px}
+.footer-links a{font:400 10px var(--mono);color:var(--dimmer);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .25s}
+.footer-links a:hover{color:var(--accent)}
+.fade-in{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.fade-in.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.fade-in{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media(max-width:760px){.wrap{padding:0 22px}section{padding:90px 0}.nav-links{display:none}.proof{grid-template-columns:1fr 1fr}.proof div{border-left:none;padding:30px 12px 30px 0;border-bottom:1px solid var(--line)}.photo-wall{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.p1{grid-column:span 2;grid-row:span 2}.p2{grid-column:span 2}.p3,.p4{grid-column:span 1}.research-grid{grid-template-columns:1fr}.project,.recognition-item{grid-template-columns:1fr;gap:14px}.hint{right:22px}}
+</style></head>
+<body>
+<nav><div class="wrap">
+<a href="#hero" class="nav-name">Aditya Raj</a>
+<ul class="nav-links"><li><a href="#research">Research</a></li><li><a href="#projects">Projects</a></li><li><a href="#recognition">Recognition</a></li></ul>
+</div></nav>
+
+<header id="hero">
+<canvas id="cv" aria-hidden="true"></canvas>
+<div class="wrap">
+<div class="hero-label">Systems Bioengineer</div>
+<h1>Aditya <span>Raj</span></h1>
+<p class="statement">Engineering the principles that keep living systems <em>stable, adaptive,</em> and alive.</p>
+<p class="hero-intro">Nineteen. I build computational frameworks that probe how biological systems hold, bend, and break, then use what they reveal to design systems that don't.</p>
 <div class="hero-links">
-  <a href="https://github.com/blackbox-genesis" class="hero-link" target="_blank">GitHub</a>
-  <a href="https://www.linkedin.com/in/aditya-synbio/" class="hero-link" target="_blank">LinkedIn</a>
-  <a href="mailto:araj85875@gmail.com" class="hero-link">Email</a>
+<a href="https://github.com/blackbox-genesis" class="hero-link" target="_blank" rel="noopener">GitHub</a>
+<a href="https://www.linkedin.com/in/aditya-synbio/" class="hero-link" target="_blank" rel="noopener">LinkedIn</a>
+<a href="mailto:araj85875@gmail.com" class="hero-link">Email</a>
 </div>
-
-<div class="photo-strip fade-in">
-  <div class="photo-item">
-    <img src="GCSB_presentation.jpg" alt="GCSB 2026" />
-    <div class="photo-caption">GCSB 2026 · Flash Talk · Germany</div>
-  </div>
-
-  <div class="photo-item">
-    <img src="FIBT_presentation.jpg" alt="FIBT 2026" />
-    <div class="photo-caption">FIBT 2026 · Best Oral Presentation · Chennai</div>
-  </div>
 </div>
+<div class="hint">Click to perturb. Watch it recover.</div>
+</header>
 
-  </div>
-</section><section id="research">
-  <div class="wrap">
-    <div class="sec-label fade-in">Research Direction</div><p class="research-intro fade-in">
-  Biological systems have continued to survive and remain stable under extreme environmental and evolutionary pressures for millions of years. My goal is to understand the principles behind this robustness through computational modeling, systems analysis, and synthetic biology to view biological systems through a deeper systems-level lens.
-</p>
+<div class="wrap"><div class="proof">
+<div><b>NIBB</b><span>Japan · Fully funded internship</span></div>
+<div><b>€1,000</b><span>Max Buchner travel grant</span></div>
+<div><b>Best Oral</b><span>FIBT 2026</span></div>
+<div><b>Patent</b><span>Pending · Nanotransfer</span></div>
+<div><b>20+</b><span>Synthetic circuits modeled</span></div>
+</div></div>
 
+<section id="proof"><div class="wrap">
+<div class="photo-wall fade-in">
+<div class="photo-item p1" data-f="GCSB_presentation.jpg"><img src="GCSB_presentation.jpg" alt="Flash talk at GCSB 2026" onerror="this.parentNode.classList.add('empty')"/><div class="photo-caption"><span>On stage in Germany</span>GCSB 2026 · Flash Talk</div></div>
+<div class="photo-item p2" data-f="FIBT_presentation.jpg"><img src="FIBT_presentation.jpg" alt="Best Oral Presentation at FIBT 2026" onerror="this.parentNode.classList.add('empty')"/><div class="photo-caption"><span>Best Oral</span>FIBT 2026 · Chennai</div></div>
+<div class="photo-item p3" data-f="NIBB_lab.jpg"><img src="NIBB_lab.jpg" alt="With lab mates at NIBB" onerror="this.parentNode.classList.add('empty')"/><div class="photo-caption"><span>In the lab</span>NIBB AREP · Japan</div></div>
+<div class="photo-item p4" data-f="NIBB_certificate.jpg"><img src="NIBB_certificate.jpg" alt="Receiving the AREP certificate" onerror="this.parentNode.classList.add('empty')"/><div class="photo-caption"><span>Certified</span>NIBB AREP</div></div>
+</div>
+</div></section>
+
+<section id="research"><div class="wrap">
+<div class="sec-label fade-in">Research Direction</div>
+<p class="research-intro fade-in">Life has stayed stable under extreme pressure for millions of years. I study why, through modeling, dynamical analysis, and synthetic biology, then turn those principles into designs: <em>circuits, diagnostics, and tools engineered to withstand perturbation.</em></p>
 <div class="research-grid fade-in">
-  <div class="research-tag">Computational systems biology</div>
-  <div class="research-tag">Synthetic circuit modeling</div>
-  <div class="research-tag">Nonlinear dynamical systems</div>
-  <div class="research-tag">Robustness & fragility analysis</div>
-  <div class="research-tag">Biological inference frameworks</div>
-  <div class="research-tag">Resilience modeling</div>
+<div class="research-tag">Systems bioengineering</div>
+<div class="research-tag">Computational systems biology</div>
+<div class="research-tag">Synthetic circuit design</div>
+<div class="research-tag">Nonlinear dynamical systems</div>
+<div class="research-tag">Robustness &amp; fragility analysis</div>
+<div class="research-tag">Resilience modeling</div>
 </div>
+</div></section>
 
-  </div>
-</section><section id="projects">
-  <div class="wrap">
-    <div class="sec-label fade-in">Selected Projects</div><div class="project fade-in">
-  <div>
-    <div class="project-name">Oculen Bio</div>
-    <div class="project-status live">Live</div>
-    <a href="http://oculen.bio" class="project-link" target="_blank">oculen.bio ↗</a>
-  </div>
+<section id="projects"><div class="wrap">
+<div class="sec-label fade-in">Selected Projects</div>
 
-  <div class="project-body">
-    <h3>Mutation-resilience analysis framework for synthetic biological circuits.</h3>
-    <p>
-      Computational platform for perturbation simulation, fragility detection, and robustness analysis across engineered biological networks.
-    </p>
-    <div class="project-stack">
-      SBML · Antimony · Monte Carlo · Latin Hypercube Sampling
-    </div>
-  </div>
-</div>
+<div class="project fade-in"><div class="project-body"><div class="project-name">Nanotransfer</div><h3>Seeing DNA move between cells, and where in tissue it happens.</h3>
+<p>Integrates single-cell RNA-seq with spatial transcriptomics to detect horizontal DNA transfer and map it across tissue.</p>
+<div class="project-stack">scRNA-seq · Spatial transcriptomics · Scanpy · AnnData · Empirical FDR control</div></div>
+<div class="project-side"><div class="project-status live">Patent pending</div>
+<a href="https://nanotransfer.io" class="project-link" target="_blank" rel="noopener">nanotransfer.io ↗</a>
+<a href="https://doi.org/10.21203/rs.3.rs-10667794/v1" class="project-link" target="_blank" rel="noopener">Preprint ↗</a></div></div>
 
-<div class="project fade-in">
-  <div>
-    <div class="project-name">BioFSM</div>
-    <div class="project-status live">Live</div>
-    <a href="https://bio-fsm.streamlit.app/" class="project-link" target="_blank">bio-fsm.streamlit.app ↗</a>
-  </div>
+<div class="project fade-in"><div class="project-body"><div class="project-name">Oculen Bio</div><h3>Finding where synthetic circuits fail, before they do.</h3>
+<p>Simulates perturbations to expose fragility and quantify robustness across engineered biological networks.</p>
+<div class="project-stack">SBML · Antimony · Monte Carlo · Latin Hypercube Sampling</div></div>
+<div class="project-side"><div class="project-status live">Live</div><a href="http://oculen.bio" class="project-link" target="_blank" rel="noopener">oculen.bio ↗</a></div></div>
 
-  <div class="project-body">
-    <h3>Interactive biological systems simulation environment.</h3>
-    <p>
-      Transforms gene-network behavior into debugging and stabilization challenges under mutation pressure.
-    </p>
-    <div class="project-stack">
-      Finite-state modeling · Systems logic · Synthetic circuits
-    </div>
-  </div>
-</div>
+<div class="project fade-in"><div class="project-body"><div class="project-name">AquaOptim</div><h3>Water-quality diagnostics that travel to the source.</h3>
+<p>A portable microbial test built for rapid, field-deployable analysis in low-resource environments.</p>
+<div class="project-stack">Best Oral Presentation · Frontiers in Industrial Biotechnology 2026</div></div>
+<div class="project-side"><div class="project-status">FIBT 2026</div></div></div>
 
-<div class="project fade-in">
-  <div>
-    <div class="project-name">Gene–Trait–Satellite Framework</div>
-    <div class="project-status">Ongoing collaborative research</div>
-  </div>
+<div class="project fade-in"><div class="project-body"><div class="project-name">Gene–Trait–Satellite</div><h3>Resilience, read from gene to satellite.</h3>
+<p>Links genetic traits, phenology, and satellite-derived stress signatures to reveal how resilience behaves across scales.</p></div>
+<div class="project-side"><div class="project-status">Ongoing collaborative research</div></div></div>
 
-  <div class="project-body">
-    <h3>Integrated biological resilience modeling across genomic, phenotypic, and environmental scales.</h3>
-    <p>
-      Combines genetic traits, phenology, and satellite-derived stress signatures to investigate large-scale resilience behavior.
-    </p>
-  </div>
-</div>
+<div class="project fade-in"><div class="project-body"><div class="project-name">BioFSM</div><h3>Debug a gene network under mutation pressure.</h3>
+<p>Turns gene-network behavior into an interactive stabilization challenge.</p>
+<div class="project-stack">Finite-state modeling · Systems logic · Synthetic circuits</div></div>
+<div class="project-side"><div class="project-status live">Live</div><a href="https://bio-fsm.streamlit.app/" class="project-link" target="_blank" rel="noopener">bio-fsm.streamlit.app ↗</a></div></div>
 
-<div class="project fade-in">
-  <div>
-    <div class="project-name">Genetic Circuit Collection</div>
-    <div class="project-status">Foundational systems modeling</div>
-  </div>
+<div class="project fade-in"><div class="project-body"><div class="project-name">Circuit Collection</div><h3>Twenty-plus circuits, one design language.</h3>
+<p>Oscillators, logic gates, memory systems, biosensors, and feed-forward architectures, modeled in Antimony and SBML.</p></div>
+<div class="project-side"><div class="project-status">Foundational modeling</div></div></div>
+</div></section>
 
-  <div class="project-body">
-    <h3>Portfolio of 20+ synthetic biological circuit simulations.</h3>
-    <p>
-      Oscillators, logic gates, memory systems, biosensors, and feed-forward architectures modeled using Antimony/SBML computational frameworks.
-    </p>
-  </div>
-</div>
+<section id="recognition"><div class="wrap">
+<div class="sec-label fade-in">Recognition</div>
+<div class="recognition-item fade-in"><div class="rec-venue">NIBB AREP 2026<br>Japan</div><div><div class="rec-main">Academic Research Experience Program</div>
+<div class="rec-detail">Research intern at Japan's National Institute for Basic Biology under Prof. Jun Minagawa, modeling state-transition and light-harvesting dynamics in photosynthetic organisms.</div><div class="rec-grant">Fully Funded Internship</div></div></div>
+<div class="recognition-item fade-in"><div class="rec-venue">GCSB 2026<br>Germany</div><div><div class="rec-main">German Conference on Synthetic Biology</div>
+<div class="rec-detail">Selected for a Flash Talk and poster in Modeling &amp; Systems Biology.</div><div class="rec-grant">€1000 Travel Grant · Max Buchner Foundation</div></div></div>
+<div class="recognition-item fade-in"><div class="rec-venue">FIBT 2026<br>Chennai</div><div><div class="rec-main">Frontiers in Industrial Biotechnology</div>
+<div class="rec-detail">Presented AquaOptim in a competitive technical session.</div><div class="rec-grant">Best Oral Presentation Award</div></div></div>
+<div class="recognition-item fade-in"><div class="rec-venue">Independent Study<br>Systems Biology</div><div><div class="rec-main">Prof. Uri Alon</div>
+<div class="rec-detail">Received a physical copy of <em>Systems Medicine</em> from Prof. Uri Alon, whose work on network motifs helped define systems-level biology.</div></div></div>
+</div></section>
 
-<div class="project fade-in">
-  <div>
-    <div class="project-name">AquaOptim</div>
-    <div class="project-status">FIBT 2026</div>
-  </div>
+<section id="engagement"><div class="wrap">
+<div class="sec-label fade-in">Research Engagement</div>
+<p class="engagement-text fade-in">In conversation with synthetic and systems biology groups across Germany, Japan, Switzerland, and Israel.</p>
+</div></section>
 
-  <div class="project-body">
-    <h3>Portable microbial diagnostics and environmental systems optimization platform.</h3>
-    <p>
-      Designed for rapid field-deployable water-quality analysis in low-resource environments.
-    </p>
-    <div class="project-stack">
-      Best Oral Presentation · Frontiers in Industrial Biotechnology 2026
-    </div>
-  </div>
-</div>
+<footer><div class="wrap">
+<div class="footer-left">Aditya Raj · Systems Bioengineer</div>
+<div class="footer-links"><a href="https://github.com/blackbox-genesis" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/aditya-synbio/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:araj85875@gmail.com">Email</a></div>
+</div></footer>
 
-  </div>
-</section><section id="recognition">
-  <div class="wrap">
-    <div class="sec-label fade-in">Recognition</div><div class="recognition-item fade-in">
-  <div class="rec-venue">
-    GCSB 2026<br>
-    Germany
-  </div>
-
-  <div>
-    <div class="rec-main">German Conference on Synthetic Biology</div>
-    <div class="rec-detail">
-      Selected for Flash Talk Presentation and poster presentation in Modeling & Systems Biology.
-    </div>
-    <div class="rec-grant">€1000 Travel Grant · Max Buchner Foundation</div>
-  </div>
-</div>
-
-<div class="recognition-item fade-in">
-  <div class="rec-venue">
-    FIBT 2026<br>
-    Chennai
-  </div>
-
-  <div>
-    <div class="rec-main">Frontiers in Industrial Biotechnology</div>
-    <div class="rec-detail">
-      Oral presentation for AquaOptim in a competitive technical session.
-    </div>
-    <div class="rec-grant">Best Oral Presentation Award</div>
-  </div>
-</div>
-
-<div class="recognition-item fade-in">
-  <div class="rec-venue">
-    Independent Study<br>
-    Systems Biology
-  </div>
-
-  <div>
-    <div class="rec-main">Prof. Uri Alon</div>
-    <div class="rec-detail">
-      Recipient of a physical copy of <em>Systems Medicine</em> from Prof. Uri Alon, a leading systems biologist known for foundational work in biological network motifs and systems-level biology.
-    </div>
-  </div>
-</div>
-</div>
-
-  </div>
-</section><section id="engagement">
-  <div class="wrap">
-    <div class="sec-label fade-in">Research Engagement</div><p class="engagement-text fade-in">
-  Research interactions with synthetic biology and systems biology groups across Germany, Japan, Switzerland, and Israel.
-</p>
-
-  </div>
-</section><footer>
-  <div class="wrap">
-    <div class="footer-left">
-      Aditya Raj · Computational Systems Biology
-    </div><div class="footer-links">
-  <a href="https://github.com/blackbox-genesis" target="_blank">GitHub</a>
-  <a href="https://www.linkedin.com/in/aditya-synbio/" target="_blank">LinkedIn</a>
-  <a href="mailto:araj85875@gmail.com">Email</a>
-</div>
-
-  </div>
-</footer><script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script></body>
-</html>
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+// Live three-gene repressilator. Click or tap the hero to kick it; it relaxes back onto its limit cycle.
+(function(){
+const cv=document.getElementById('cv'),cx=cv.getContext('2d'),hero=document.getElementById('hero');
+let m=[0,0,0],p=[1,2,3],H=[[],[],[]],W,Hh,dpr=Math.min(devicePixelRatio||1,2);
+const a=216,b=5,n=2,dt=.02,cols=['#7eb8a4','#c4a882','#ece8de'],still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function size(){W=cv.clientWidth;Hh=cv.clientHeight;cv.width=W*dpr;cv.height=Hh*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}
+function step(){const q=[0,1,2].map(i=>-m[i]+a/(1+Math.pow(p[(i+2)%3],n)));for(let i=0;i<3;i++){m[i]+=q[i]*dt;p[i]+=-b*(p[i]-m[i])*dt}}
+function draw(){for(let k=0;k<
