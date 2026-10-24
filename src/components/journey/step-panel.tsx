@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { goToStep, useActiveStep, useScrollStyle } from "./store";
 import { STEPS, accentFor } from "./steps";
@@ -31,6 +31,7 @@ export function StepPanel({
   const active = useActiveStep() === index;
   const { side, focus } = STEPS[index];
   const ref = useRef<HTMLElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const apply = useCallback(
     (el: HTMLElement, progress: number) => {
@@ -41,6 +42,28 @@ export function StepPanel({
     [index],
   );
   useScrollStyle(ref, apply);
+
+  // Keep every section to one screen with no inner scrolling: if the text (and
+  // photo) would run taller than the space available, shrink it to fit.
+  useEffect(() => {
+    const section = ref.current;
+    const card = cardRef.current;
+    if (!section || !card) return;
+    const fit = () => {
+      const phone = window.innerWidth < 768;
+      const available = window.innerHeight - (phone ? 96 : 120); // clear the top figure label
+      const scale = Math.min(1, available / Math.max(1, card.offsetHeight));
+      section.style.setProperty("--fit", scale.toFixed(3));
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(card);
+    window.addEventListener("resize", fit);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", fit);
+    };
+  }, []);
 
   return (
     <section
@@ -57,9 +80,12 @@ export function StepPanel({
       )}
     >
       <div
+        ref={cardRef}
         className={cn(
-          "panel-card w-full max-h-[60svh] overflow-y-auto overscroll-contain px-3 pb-4 md:max-h-[88svh] md:w-[min(560px,44vw)] md:px-0",
-          active && "pointer-events-auto",
+          // No pointer capture on the text itself, so a swipe anywhere scrolls the page;
+          // only links and buttons take touches, and only on the visible section.
+          "panel-card w-full px-3 pb-4 md:w-[min(560px,44vw)] md:px-0",
+          active && "[&_a]:pointer-events-auto [&_button]:pointer-events-auto",
           className,
         )}
       >

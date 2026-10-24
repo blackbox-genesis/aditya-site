@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <p className="mb-5 font-mono text-xs font-medium uppercase tracking-[0.2em] text-[color:var(--accent)]">{children}</p>
+    <p className="mb-3 font-mono text-[11px] font-medium md:mb-5 md:text-xs uppercase tracking-[0.2em] text-[color:var(--accent)]">{children}</p>
   );
 }
 
@@ -20,7 +20,7 @@ function Headline({ id, children }: { id?: string; children: ReactNode }) {
   return (
     <h2
       id={id}
-      className="text-[2.2rem] font-normal leading-[1.06] tracking-tight text-white text-balance md:text-[3.2rem]"
+      className="text-[1.8rem] font-normal leading-[1.06] tracking-tight text-white text-balance md:text-[3.2rem]"
     >
       {children}
     </h2>
@@ -30,14 +30,14 @@ function Headline({ id, children }: { id?: string; children: ReactNode }) {
 /** Reflective statements — Instrument Serif italic */
 function Reflection({ id, children }: { id?: string; children: ReactNode }) {
   return (
-    <h2 id={id} className="font-serif text-[2.7rem] italic text-white leading-[1.02] tracking-tight text-balance md:text-[4rem]">
+    <h2 id={id} className="font-serif text-[2.15rem] italic text-white leading-[1.02] tracking-tight text-balance md:text-[4rem]">
       {children}
     </h2>
   );
 }
 
 function Body({ children, className }: { children: ReactNode; className?: string }) {
-  return <p className={cn("text-[0.95rem] leading-relaxed text-white/80 md:text-base", className)}>{children}</p>;
+  return <p className={cn("text-[0.9rem] leading-[1.55] text-white/80 md:text-base md:leading-relaxed", className)}>{children}</p>;
 }
 
 function Tags({ children, className }: { children: ReactNode; className?: string }) {
@@ -74,7 +74,7 @@ function OutLink({ href, children }: { href: string; children: ReactNode }) {
 /** A project's name is the panel's main heading… */
 function ProjectName({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <h2 id={id} className="text-[2.6rem] font-extrabold leading-[1] tracking-[-0.03em] text-white text-balance md:text-[3.8rem]">
+    <h2 id={id} className="text-[2.1rem] font-extrabold leading-[1] tracking-[-0.03em] text-white text-balance md:text-[3.8rem]">
       {children}
     </h2>
   );
@@ -82,7 +82,7 @@ function ProjectName({ id, children }: { id: string; children: ReactNode }) {
 
 /** …and its catchy line sits underneath. */
 function Tagline({ children }: { children: ReactNode }) {
-  return <p className="mt-3 text-lg font-medium leading-snug text-white/75 text-balance md:text-xl">{children}</p>;
+  return <p className="mt-2 text-base font-medium leading-snug text-white/75 text-balance md:mt-3 md:text-xl">{children}</p>;
 }
 
 export default function Home() {

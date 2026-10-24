@@ -14,8 +14,8 @@ export function Plate({ name, alt, placeholder }: { name: string; alt: string; p
   );
 
   return (
-    <figure className="mt-6">
-      <div className="relative aspect-[16/10] max-h-[22svh] w-full overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] md:max-h-none">
+    <figure className="mt-4 md:mt-6">
+      <div className="relative aspect-[16/10] max-h-[24svh] w-full overflow-hidden rounded-lg border border-white/10 bg-white/[0.03] md:max-h-none">
         {file ? (
           <Image src={`/images/${file}`} alt={alt} fill sizes="(min-width: 768px) 500px, 100vw" className="object-cover" />
         ) : (

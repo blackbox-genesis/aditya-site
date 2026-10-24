@@ -100,11 +100,16 @@
 .step-panel .panel-card {
   position: relative; /* above the shade */
   opacity: var(--vis, 0);
-  transform: translate3d(0, var(--drift, 0px), 0);
+  /* --fit (≤ 1) shrinks a tall section so it always fits one screen */
+  transform: translate3d(0, var(--drift, 0px), 0) scale(var(--fit, 1));
+  transform-origin: bottom left;
   will-change: opacity, transform;
   text-shadow: 0 1px 14px rgb(var(--shade) / 0.6);
-  scrollbar-width: thin;
-  scrollbar-color: rgb(255 255 255 / 0.25) transparent;
+}
+@media (min-width: 768px) {
+  .step-panel[data-side="left"] .panel-card { transform-origin: left center; }
+  .step-panel[data-side="right"] .panel-card { transform-origin: right center; }
+  .step-panel[data-side="center"] .panel-card { transform-origin: center; }
 }
 
 .scroll-cue {
