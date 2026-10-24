@@ -1,0 +1,139 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-newsreader);
+  --font-heading: var(--font-geist);
+  --color-ring: var(--ring);
+  --color-border: var(--border);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  /* Organelle palette — natural, stain-like tones (mirrors ORGANELLE_COLORS in steps.ts) */
+  --color-nucleus: var(--nucleus);
+  --color-chloroplast: var(--chloroplast);
+  --color-chromatin: var(--chromatin);
+  --color-gene: var(--gene);
+  --color-cytoplasm: var(--cytoplasm);
+  --color-membrane: var(--membrane);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+}
+
+/* Slate blue-grey studio ground; soft, realistic organelle accents */
+:root {
+  --background: #1c2633;
+  --foreground: #f1f4f7;
+  --muted: #26313f;
+  --muted-foreground: #b3bfcb;
+  --primary: #f1f4f7;
+  --primary-foreground: #1a2330;
+  --border: rgb(255 255 255 / 0.12);
+  --ring: #a7c6d1;
+  --radius: 0.75rem;
+  --shade: 22 30 41; /* rgb channels of the deep slate used for text shading */
+
+  --nucleus: #a99be6;
+  --chloroplast: #8cc77a;
+  --chromatin: #e08a92;
+  --gene: #e6bd5c;
+  --cytoplasm: #6cc3b9;
+  --membrane: #d996bf;
+  --accent-cell: #a7c6d1;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--accent-cell) 40%, transparent);
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ── Text: open type on the scene, faded and drifted continuously by scroll ──
+   --vis (0–1) and --drift (px) are written every frame from the smoothed scroll
+   position, so sections flow into one another with no timed gaps. */
+.step-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--vis, 0);
+  background: linear-gradient(to top, rgb(var(--shade) / 0.92) 0%, rgb(var(--shade) / 0.78) 55%, transparent 88%);
+}
+@media (min-width: 768px) {
+  .step-panel[data-side="left"]::before {
+    background: linear-gradient(to right, rgb(var(--shade) / 0.82) 0%, rgb(var(--shade) / 0.5) 38%, transparent 62%);
+  }
+  .step-panel[data-side="right"]::before {
+    background: linear-gradient(to left, rgb(var(--shade) / 0.82) 0%, rgb(var(--shade) / 0.5) 38%, transparent 62%);
+  }
+  .step-panel[data-side="center"]::before {
+    background: radial-gradient(50% 45% at 50% 50%, rgb(var(--shade) / 0.75), transparent 100%);
+  }
+}
+
+.step-panel .panel-card {
+  position: relative; /* above the shade */
+  opacity: var(--vis, 0);
+  transform: translate3d(0, var(--drift, 0px), 0);
+  will-change: opacity, transform;
+  text-shadow: 0 1px 14px rgb(var(--shade) / 0.6);
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.25) transparent;
+}
+
+.scroll-cue {
+  background: linear-gradient(to bottom, transparent, rgb(255 255 255 / 0.7));
+  animation: cue 2.2s ease-in-out infinite;
+  transform-origin: top;
+}
+@keyframes cue {
+  0% { transform: translateX(-50%) scaleY(0); opacity: 0; }
+  40% { opacity: 1; }
+  100% { transform: translateX(-50%) scaleY(1); opacity: 0; }
+}
+
+.hero-scrim {
+  background: radial-gradient(52% 34% at 50% 50%, rgb(var(--shade) / 0.7), rgb(var(--shade) / 0.35) 60%, transparent 100%);
+}
+
+/* Shown while WebGL loads or if it is unavailable — same slate studio ground as the 3D scene */
+.scene-fallback {
+  background: radial-gradient(110% 90% at 62% 40%, #5a6c82 0%, #2e3b4c 55%, #1c2633 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
